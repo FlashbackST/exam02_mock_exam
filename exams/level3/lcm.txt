@@ -1,0 +1,13 @@
+Assignment name  : lcm
+Expected files   : lcm.c
+Allowed functions: None
+--------------------------------------------------------------------------------
+
+Write a function that takes two unsigned integers and returns their lowest
+common multiple (the smallest positive integer divisible by both).
+
+If either parameter is 0, return 0.
+
+Your function must be declared as follows:
+
+unsigned int	lcm(unsigned int a, unsigned int b);

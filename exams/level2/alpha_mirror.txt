@@ -1,0 +1,22 @@
+Assignment name  : alpha_mirror
+Expected files   : alpha_mirror.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Write a program that takes a string and displays it, replacing each
+alphabetical character by the opposite letter in the alphabet. Case is
+preserved.
+
+'a' becomes 'z', 'Z' becomes 'A', 'd' becomes 'w', 'M' becomes 'N'.
+Non-alphabetical characters remain unchanged.
+
+If the number of parameters is not 1, simply display a newline.
+
+Examples:
+
+$> ./alpha_mirror "abc"
+zyx
+$> ./alpha_mirror "My horse is Amazing." | cat -e
+Nb slihv rh Znzarmt.$
+$> ./alpha_mirror | cat -e
+$

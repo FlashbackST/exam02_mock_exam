@@ -1,0 +1,24 @@
+Assignment name  : sort_list
+Expected files   : sort_list.c
+Allowed functions: None
+--------------------------------------------------------------------------------
+
+Write a function that sorts a linked list using a comparison function and
+returns a pointer to the first element of the sorted list.
+
+Your function must be declared as follows:
+
+t_list	*sort_list(t_list *lst, int (*cmp)(int, int));
+
+The comparison function returns a non-zero value when elements are in the
+correct order, and 0 otherwise.
+
+Example of a comparison function for ascending order:
+
+int ascending(int a, int b)
+{
+    return (a <= b);
+}
+
+Note: Include the "list.h" header file provided with the exam (do not submit it).
+The t_list structure is defined in list.h.

@@ -1,0 +1,13 @@
+Assignment name  : ft_strcspn
+Expected files   : ft_strcspn.c
+Allowed functions: None
+--------------------------------------------------------------------------------
+
+Reproduce the behavior of the function strcspn (man strcspn).
+
+The function returns the length of the initial segment of s that consists
+entirely of bytes not in reject.
+
+Your function must be declared as follows:
+
+size_t	ft_strcspn(const char *s, const char *reject);

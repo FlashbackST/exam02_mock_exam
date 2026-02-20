@@ -1,0 +1,21 @@
+Assignment name  : camel_to_snake
+Expected files   : camel_to_snake.c
+Allowed functions: malloc, realloc, write
+--------------------------------------------------------------------------------
+
+Write a program that takes a lowerCamelCase string and displays it in
+snake_case, followed by a newline.
+
+In lowerCamelCase, each word except the first begins with a capital letter.
+In snake_case, words are lowercase and separated by underscores.
+
+If the number of parameters is not 1, simply display a newline.
+
+Examples:
+
+$> ./camel_to_snake "hereIsACamelCaseWord"
+here_is_a_camel_case_word
+$> ./camel_to_snake "helloWorld" | cat -e
+hello_world$
+$> ./camel_to_snake | cat -e
+$

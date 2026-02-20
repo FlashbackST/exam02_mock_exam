@@ -1,0 +1,26 @@
+Assignment name  : str_capitalizer
+Expected files   : str_capitalizer.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Write a program that takes one or more strings and, for each one, displays it
+with the first alphabetical character of each word in uppercase and all other
+letters in lowercase, followed by a newline.
+
+A word is a section of string delimited by spaces/tabs or by the start/end of
+the string. Single-letter words must be capitalized.
+
+If no parameters are provided, simply display a newline.
+
+Examples:
+
+$> ./str_capitalizer | cat -e
+$
+$> ./str_capitalizer "a FiRSt LiTTlE TESt" | cat -e
+A First Little Test$
+$> ./str_capitalizer "__SecONd teST A LITtle BiT   Moar comPLEX" \
+"   But... This iS not THAT COMPLEX" \
+"     Okay, this is the last 1239809147801 but not    the least    t" | cat -e
+__second Test A Little Bit   Moar Complex$
+   But... This Is Not That Complex$
+     Okay, This Is The Last 1239809147801 But Not    The Least    T$

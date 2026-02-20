@@ -1,0 +1,24 @@
+Assignment name  : do_op
+Expected files   : *.c, *.h
+Allowed functions: atoi, printf, write
+--------------------------------------------------------------------------------
+
+Write a program that takes three string arguments: two signed integers in
+base 10 and an arithmetic operator (+, -, *, /, %). The program computes
+the operation and displays the result followed by a newline.
+
+If the number of parameters is not 3, simply display a newline.
+
+Inputs fit within int range. Negative numbers have exactly one leading hyphen.
+The result also fits in an int.
+
+Examples:
+
+$> ./do_op "123" "*" 456 | cat -e
+56088$
+$> ./do_op "9828" "/" 234 | cat -e
+42$
+$> ./do_op "1" "+" "-43" | cat -e
+-42$
+$> ./do_op | cat -e
+$

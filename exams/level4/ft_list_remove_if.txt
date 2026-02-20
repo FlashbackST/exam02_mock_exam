@@ -1,0 +1,25 @@
+Assignment name  : ft_list_remove_if
+Expected files   : ft_list_remove_if.c
+Allowed functions: free
+--------------------------------------------------------------------------------
+
+Write a function that removes from a linked list all nodes whose data matches
+a reference value according to a comparison function. The removed nodes must
+be freed.
+
+Your function must be declared as follows:
+
+void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)());
+
+Parameters:
+- begin_list: pointer to the first element of the list
+- data_ref: the reference data to compare against
+- cmp: comparison function that returns 0 when the two data are equal
+
+The structure t_list is defined as follows:
+
+typedef struct s_list
+{
+    struct s_list   *next;
+    void            *data;
+}                   t_list;

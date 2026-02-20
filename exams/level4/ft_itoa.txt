@@ -1,0 +1,11 @@
+Assignment name  : ft_itoa
+Expected files   : ft_itoa.c
+Allowed functions: malloc
+--------------------------------------------------------------------------------
+
+Write a function that converts an integer to a null-terminated string and
+returns it (allocated with malloc).
+
+Your function must be declared as follows:
+
+char	*ft_itoa(int nbr);

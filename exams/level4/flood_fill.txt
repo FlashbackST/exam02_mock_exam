@@ -1,0 +1,40 @@
+Assignment name  : flood_fill
+Expected files   : *.c, *.h
+Allowed functions: None
+--------------------------------------------------------------------------------
+
+Write a function that takes a 2D array of char, the dimensions of that array,
+and a starting point. Starting from the given point, fill an entire zone by
+replacing characters with 'F'. A zone is a group of the same character
+delimited horizontally and vertically by other characters or the array
+boundary. The function won't fill diagonally.
+
+The t_point structure is available inside the "t_point.h" file.
+
+Your function must be declared as follows:
+
+void	flood_fill(char **tab, t_point size, t_point begin);
+
+The t_point structure is defined as follows:
+
+typedef struct s_point
+{
+    int x;
+    int y;
+}   t_point;
+
+Example:
+
+Input array (size {8, 5}, begin {2, 2}):
+1 1 1 1 1 1 1 1
+1 0 0 0 1 0 0 1
+1 0 0 1 0 0 0 1
+1 0 1 1 0 0 0 1
+1 1 1 0 0 0 0 1
+
+Output:
+1 1 1 1 1 1 1 1
+1 F F F 1 0 0 1
+1 F F 1 0 0 0 1
+1 F 1 0 0 0 0 1
+1 1 0 0 0 0 0 0

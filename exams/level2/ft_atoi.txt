@@ -1,0 +1,10 @@
+Assignment name  : ft_atoi
+Expected files   : ft_atoi.c
+Allowed functions: None
+--------------------------------------------------------------------------------
+
+Reproduce the behavior of the function atoi (man atoi).
+
+Your function must be declared as follows:
+
+int	ft_atoi(const char *str);

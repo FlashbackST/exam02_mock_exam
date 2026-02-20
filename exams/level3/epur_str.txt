@@ -1,0 +1,24 @@
+Assignment name  : epur_str
+Expected files   : epur_str.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Write a program that takes a string and displays it with exactly one space
+between each word, with no leading or trailing spaces, followed by a newline.
+
+A word is a section of string delimited by spaces/tabs or by the start/end of
+the string.
+
+If the number of parameters is not 1, or if there are no words, simply display
+a newline.
+
+Examples:
+
+$> ./epur_str "vous voyez c'est facile d'afficher la meme chose" | cat -e
+vous voyez c'est facile d'afficher la meme chose$
+$> ./epur_str " seulement          la c'est      plus dur " | cat -e
+seulement la c'est plus dur$
+$> ./epur_str "comme c'est cocasse" "vous avez entendu, Mathilde ?" | cat -e
+$
+$> ./epur_str "" | cat -e
+$
