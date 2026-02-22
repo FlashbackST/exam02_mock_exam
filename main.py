@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import base64
+import io
 import select
 import sys
 import termios
@@ -36,6 +37,7 @@ LEVELS = ["level1", "level2", "level3", "level4"]
 # ---------------------------------------------------------------------------
 start_time = 0.0
 current_level = 0
+score = 0          # points gagnés via grademe uniquement (pas les skips)
 current_subject = None  # Path to the active .txt file
 time_expired = False
 debug_mode = False
@@ -333,10 +335,12 @@ def run_tester(binary: str) -> tuple[bool, str]:
 # Grading
 # ---------------------------------------------------------------------------
 
-def do_grademe():
+def _run_grademe() -> bool:
+    """Logique de correction — retourne True si réussi. Incrémente score si OK."""
+    global score
     if current_subject is None:
         print("[ERROR] Aucun sujet sélectionné.")
-        return
+        return False
     subject_path = current_subject
     subject_name = subject_path.stem
     print(f"\n--- Correction : {subject_name} ---")
@@ -345,7 +349,7 @@ def do_grademe():
     expected_files = get_expected_files(subject_path)
     if not expected_files:
         print("[ERROR] Impossible de lire 'Expected files' dans le sujet.")
-        return
+        return False
     print(f"Fichiers attendus : {', '.join(expected_files)}")
 
     # 2. Examples → decide if we need a binary
@@ -359,7 +363,7 @@ def do_grademe():
         trace = TRACES_DIR / f"{subject_name}_trace.txt"
         trace.write_text(result + "\n")
         print(f"Trace : traces/{trace.name}")
-        return
+        return False
     binary = result
     print("Compilation : OK")
 
@@ -376,7 +380,7 @@ def do_grademe():
                 trace = TRACES_DIR / f"{subject_name}_trace.txt"
                 trace.write_text(result + "\n")
                 print(f"Trace : traces/{trace.name}")
-                return
+                return False
             print("Compilation avec tester : OK")
             passed_tester, output = run_tester(result)
             trace = TRACES_DIR / f"{subject_name}_trace.txt"
@@ -384,17 +388,21 @@ def do_grademe():
             print(f"Trace : traces/{trace.name}")
             if passed_tester:
                 print("Tous les tests passés → accepté.")
+                score += 25
                 _advance()
+                return True
             else:
                 print("Tests échoués. Corrige ton code et retape 'grademe'.")
                 print(output)
+                return False
         else:
             if not binary:
                 print("Exercice header-only : accepté.")
             else:
                 print("Pas d'exemples exécutables : compilation OK → accepté.")
+            score += 25
             _advance()
-        return
+            return True
 
     # 5. Run tests
     passed = 0
@@ -427,9 +435,88 @@ def do_grademe():
     print(f"Trace : traces/{trace.name}")
 
     if passed == total:
+        score += 25
         _advance()
+        return True
     else:
         print("Corrige ton code et retape 'grademe'.")
+        return False
+
+
+def do_grademe():
+    """Wrapper : capture l'output, affiche la bannière en premier."""
+    saved_score = score
+    buf = io.StringIO()
+    old_stdout = sys.stdout
+    sys.stdout = buf
+    try:
+        success = _run_grademe()
+    finally:
+        sys.stdout = old_stdout
+    _show_result_banner(success, saved_score)
+    print(buf.getvalue(), end="")
+    print()
+
+
+def _show_result_banner(success: bool, points_before: int = -1):
+    """Affiche une bannière colorée avec le score et la barre de progression."""
+    GREEN = "\033[92m"
+    RED   = "\033[91m"
+    BOLD  = "\033[1m"
+    RESET = "\033[0m"
+
+    if points_before == -1:
+        points_before = score
+    if success:
+        points_after = points_before + 25
+        color = GREEN
+        icon  = "✓"
+        title = "NIVEAU VALIDÉ"
+        pts   = "+25 points"
+    else:
+        points_after = points_before
+        color = RED
+        icon  = "✗"
+        title = "NIVEAU ÉCHOUÉ"
+        pts   = "+0 points"
+
+    filled = points_after // 5          # 20 blocs = 100 pts
+    bar = "█" * filled + "░" * (20 - filled)
+
+    W = 56  # largeur intérieure de la boîte
+    line1 = f"  {icon}  {title}  —  {pts}"
+    line2 = f"  Score total  :  {bar}  {points_after} / 100"
+
+    print()
+    print(f"{color}{BOLD}╔{'═' * W}╗{RESET}")
+    print(f"{color}{BOLD}║{line1:<{W}}║{RESET}")
+    print(f"{color}{BOLD}║{'':^{W}}║{RESET}")
+    print(f"{color}{BOLD}║{line2:<{W}}║{RESET}")
+    print(f"{color}{BOLD}╚{'═' * W}╝{RESET}")
+    print()
+
+
+def _show_skip_banner():
+    """Bannière jaune spéciale pour le skip (debug only)."""
+    YELLOW = "\033[93m"
+    BOLD   = "\033[1m"
+    RESET  = "\033[0m"
+
+    points = score  # skip ne donne pas de points
+    filled = points // 5
+    bar = "█" * filled + "░" * (20 - filled)
+
+    W     = 56
+    line1 = "  ⚡  EXERCICE SKIPÉ  —  mode debug"
+    line2 = f"  Score total  :  {bar}  {points} / 100"
+
+    print()
+    print(f"{YELLOW}{BOLD}╔{'═' * W}╗{RESET}")
+    print(f"{YELLOW}{BOLD}║{line1:<{W - 1}}║{RESET}")
+    print(f"{YELLOW}{BOLD}║{'':^{W}}║{RESET}")
+    print(f"{YELLOW}{BOLD}║{line2:<{W}}║{RESET}")
+    print(f"{YELLOW}{BOLD}╚{'═' * W}╝{RESET}")
+    print()
 
 
 def _advance():
@@ -553,6 +640,7 @@ def main():
                     "(disponible uniquement en mode debug)"
                 )
             else:
+                _show_skip_banner()
                 print("[DEBUG] Exercice ignoré.")
                 _show_solution()
                 _advance()
