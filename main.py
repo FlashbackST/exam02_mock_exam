@@ -592,10 +592,11 @@ def main():
 
     debug_mode = "--debug" in sys.argv
 
-    if "--levels" in sys.argv:
-        idx = sys.argv.index("--levels")
-        if idx + 1 < len(sys.argv):
-            LEVELS[:] = _parse_levels(sys.argv[idx + 1])
+    _level_flags = {"-l", "--l", "-lvl", "--lvl", "-level", "--level", "-levels", "--levels"}
+    for i, arg in enumerate(sys.argv):
+        if arg in _level_flags and i + 1 < len(sys.argv):
+            LEVELS[:] = _parse_levels(sys.argv[i + 1])
+            break
 
     print("=" * 60)
     print("           EXAM RANK 02 — MOCK EXAM")
