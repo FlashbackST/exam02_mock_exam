@@ -529,10 +529,10 @@ def _advance():
         )
         sys.exit(0)
     level_name = LEVELS[current_level]
-    print(f"\nPassage au niveau {current_level + 1}…")
+    print(f"\nPassage au niveau {LEVELS[current_level][-1]}…")
     subject = select_subject(level_name)
     if subject:
-        print(f"[Niveau {current_level + 1}] Sujet : {subject.stem}")
+        print(f"[Niveau {LEVELS[current_level][-1]}] Sujet : {subject.stem}")
         print(f"Sujet copié dans subjects/{subject.name}")
         print("Mets ton rendu dans render/\n")
 
@@ -572,10 +572,30 @@ def _timer_watcher():
 # Entry point
 # ---------------------------------------------------------------------------
 
+def _parse_levels(arg: str) -> list[str]:
+    """Parse '--levels 3', '--levels 3,4', '--levels 1-3' into level names."""
+    all_levels = ["level1", "level2", "level3", "level4"]
+    result = []
+    for part in arg.split(","):
+        part = part.strip()
+        if "-" in part:
+            lo, hi = part.split("-", 1)
+            result += all_levels[int(lo) - 1 : int(hi)]
+        else:
+            idx = int(part) - 1
+            result.append(all_levels[idx])
+    return result
+
+
 def main():
-    global start_time, debug_mode
+    global start_time, debug_mode, LEVELS
 
     debug_mode = "--debug" in sys.argv
+
+    if "--levels" in sys.argv:
+        idx = sys.argv.index("--levels")
+        if idx + 1 < len(sys.argv):
+            LEVELS[:] = _parse_levels(sys.argv[idx + 1])
 
     print("=" * 60)
     print("           EXAM RANK 02 — MOCK EXAM")
@@ -583,6 +603,7 @@ def main():
         print("               *** MODE DEBUG ***")
     print("=" * 60)
     print(f"Durée       : {format_time(EXAM_DURATION)}")
+    print(f"Niveaux     : {chr(44).join(l[-1] for l in LEVELS)}")
     if debug_mode:
         print(
             "Commandes   : "
@@ -605,7 +626,7 @@ def main():
     subject = select_subject(LEVELS[current_level])
     if not subject:
         sys.exit(1)
-    print(f"\n[Niveau 1] Sujet : {subject.stem}")
+    print(f"\n[Niveau {LEVELS[current_level][-1]}] Sujet : {subject.stem}")
     print(f"Sujet copié dans subjects/{subject.name}")
     print("Mets ton rendu dans render/\n")
 
@@ -648,7 +669,7 @@ def main():
         elif cmd == "status":
             sub = current_subject.stem if current_subject else '—'
             print(
-                f"  Niveau    : {current_level + 1}/{len(LEVELS)}\n"
+                f"  Niveau    : {LEVELS[current_level][-1]}/{LEVELS[-1][-1]}\n"
                 f"  Sujet     : {sub}\n"
                 f"  Écoulé    : {format_time(elapsed())}\n"
                 f"  Restant   : {format_time(max(0.0, remaining()))}"
