@@ -24,6 +24,22 @@ Mode debug (accès à `skip`, timer affiché avec `[DEBUG]`) :
 python3 main.py --debug
 ```
 
+Filtrer par niveau(x) :
+
+```bash
+# Un seul niveau
+python3 main.py --levels 3
+
+# Plusieurs niveaux (virgule)
+python3 main.py --levels 3,4
+
+# Plage de niveaux (tiret)
+python3 main.py --levels 1-3
+
+# Combinable avec --debug
+python3 main.py --levels 3,4 --debug
+```
+
 ---
 
 ## Déroulement d'une session
