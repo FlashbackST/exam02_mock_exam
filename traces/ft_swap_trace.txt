@@ -1,0 +1,9 @@
+Erreur de compilation :
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_swap.c: In function ‘ft_swap’:
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_swap.c:8:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+    8 |     return (0);
+      |            ^
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_swap.c:1:6: note: declared here
+    1 | void ft_swap(int *a, int *b)
+      |      ^~~~~~~
+cc1: all warnings being treated as errors

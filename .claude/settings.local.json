@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(head:*)",
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(bash exams/.tester/run_all.sh)",
+      "Bash(# Fix:*)",
+      "Bash(exams/.tester/ft_list_remove_if_test.c:*)",
+      "Bash(exams/.tester/ft_range_test.c:*)",
+      "Bash(__NEW_LINE_2c088dab3a2eda62__ cat)",
+      "Bash(exams/.tester/ft_rrange_test.c:*)",
+      "Bash(exams/.tester/flood_fill_test.c:*)",
+      "Bash(# Recreate:*)"
+    ]
+  }
+}
