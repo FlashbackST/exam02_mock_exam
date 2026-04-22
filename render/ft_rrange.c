@@ -1,3 +1,4 @@
+#include <stdlib.h>
 
 int	*ft_rrange(int start, int end)
 {
@@ -7,6 +8,7 @@ int	*ft_rrange(int start, int end)
     int i = 0;
 
     arr = malloc(sizeof(int) * size);
+
 
     if (end > start)
         step = -1;

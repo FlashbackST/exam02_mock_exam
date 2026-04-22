@@ -1,0 +1,15 @@
+Erreur de compilation :
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c: In function ‘ft_rrange’:
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c:4:16: error: implicit declaration of function ‘abs’ [-Werror=implicit-function-declaration]
+    4 |     int size = abs(end - start) + 1;
+      |                ^~~
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c:1:1: note: include ‘<stdlib.h>’ or provide a declaration of ‘abs’
+  +++ |+#include <stdlib.h>
+    1 | 
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c:9:11: error: implicit declaration of function ‘malloc’ [-Werror=implicit-function-declaration]
+    9 |     arr = malloc(sizeof(int) * size);
+      |           ^~~~~~
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c:9:11: note: include ‘<stdlib.h>’ or provide a declaration of ‘malloc’
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c:9:11: error: incompatible implicit declaration of built-in function ‘malloc’ [-Werror=builtin-declaration-mismatch]
+/mnt/c/Users/kalfo/Downloads/EXAM2/EXAM/Exam2/exam02_mock_exam(grademe)/exam02_mock_exam/render/ft_rrange.c:9:11: note: include ‘<stdlib.h>’ or provide a declaration of ‘malloc’
+cc1: all warnings being treated as errors
